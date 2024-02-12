@@ -1,46 +1,75 @@
+# Import the tabulate module for formatting data into tables and the sys module for system-specific functions.
+from tabulate import tabulate
 import sys
 
+# Define a class named "ATM" to represent the ATM functionality.
 class ATM:
+    # Initialize the ATM with an initial balance, current balance, and an empty transaction history.
     def __init__(self):
-        self.initial_balance=0
-        self.balance=self.initial_balance
-        self.transaction_history=[]
-        
-    def deposit(self,amount):
-        self.balance+=amount
-        transcation_detail=f'deposited ${amounnt}'
-        self.transaction_history.append(transcation_detail)
-        return f'deposited ${amount}.new_balance:${self.balance}'
-    
-    def withdraw(self,amount):
-        if amount<=self.balance:
-            self.balance-=amount
-            self.transaction_history.append(f'withdraw ${amount}')
-            return f'withdraw ${amount}.new_balance ${self.balance}'
-        else:
-            return 'insufficient funds'
-    
-    def trnsfer(self, amount , transfer_type , recipient):
+        self.initial_balance = 0
+        self.balance = self.initial_balance
+        self.transaction_history = []
+
+    # Define a method for depositing money into the ATM.
+    def deposit(self, amount):
+        # Increase the balance by the deposited amount.
+        self.balance += amount
+        # Create a transaction detail message for the deposit and append it to the transaction history.
+        transaction_detail = f'Deposited ${amount}'
+        self.transaction_history.append(transaction_detail)
+        # Return a message confirming the deposit and showing the new balance.
+        return f'Deposited ${amount}. New balance: ${self.balance}'
+
+    # Define a method for withdrawing money from the ATM.
+    def withdraw(self, amount):
+        # Check if the requested withdrawal amount is less than or equal to the available balance.
         if amount <= self.balance:
+            # Reduce the balance by the withdrawn amount.
             self.balance -= amount
-            if transfer_type==1:
-                transcation_detail=f'tranfered ${amount} to {recipient}'
-                self.transaction_history.append(transcation_detail)
-            elif transfer_type==2:
-                transcation_detail=f'tranfered ${amount} to {recipient}'
-                self.transaction_history.append(transcation_detail)
-            elif transfer_type==3:
-                transcation_detail=f'tranfered ${amount} to {recipient}'
-                self.transaction_history.append(transcation_detail)
-            return f'tranfered ${amount} to {recipient}.new_balance ${self.balance}'
+            # Create a transaction detail message for the withdrawal and append it to the transaction history.
+            self.transaction_history.append(f'Withdrawn ${amount}')
+            # Return a message confirming the withdrawal and showing the new balance.
+            return f'Withdrawn ${amount}. New balance: ${self.balance}'
         else:
-            return 'insufficient_funds'
-        
+            # Return an "Insufficient funds" message if the withdrawal amount exceeds the available balance.
+            return 'Insufficient funds'
+
+
+    # Define a method for transferring money from the ATM to another recipient.
+    def transfer(self, amount, recipient, transfer_type):
+        # Check if the requested transfer amount is less than or equal to the available balance.
+        if amount <= self.balance:
+            # Reduce the balance by the transferred amount based on the transfer type.
+            self.balance -= amount
+            # Create a transaction detail message for the transfer based on the transfer type.
+            if transfer_type == 1:
+                transaction_detail = f'Transferred ${amount} to {recipient}'
+                self.transaction_history.append(transaction_detail)
+            elif transfer_type == 2:
+                transaction_detail = f'Transferred ${amount} to {recipient}'
+                self.transaction_history.append(transaction_detail)
+            elif transfer_type == 3:
+                transaction_detail = f'Transferred ${amount} to {recipient}'
+                # Append the transaction detail to the transaction history.
+                self.transaction_history.append(transaction_detail)
+            # Return a message confirming the transfer and showing the new balance.
+            return f'Transferred ${amount} to {recipient}. New balance: ${self.balance}'
+        else:
+            # Return an "Insufficient funds" message if the transfer amount exceeds the available balance.
+            return 'Insufficient funds'
+
+    # Define a method to get the current balance.
     def get_balance(self):
-        return f'current_balance ${self.balance}'
+        # Return a message displaying the current balance.
+        return f'Current balance: ${self.balance}'
+
+    # Define a method to get the transaction history.
     def get_transaction_history(self):
+        # Return the list of transaction history.
         return self.transaction_history
     
+
+    # Function to display ATM logo
 def display_logo():
     # Define the ASCII art for the "Welcome" logo
     welcome_logo = """
@@ -69,7 +98,8 @@ def display_logo():
     # Display the logo in the console
     print(welcome_logo)
 
-    
+
+# Define a function named "atm_interface" to handle the ATM user interface.
 def atm_interface():
 
     # Create an instance of the ATM class.
@@ -234,7 +264,3 @@ def atm_interface():
 if __name__ == "__main__":
     # Call the "atm_interface" function to start the ATM application.
     atm_interface()
-
-        
-        
-
